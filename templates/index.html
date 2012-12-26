@@ -1,24 +1,8 @@
 {% extends "layout.html" %}
 {% block body %}
-<script type=text/javascript>
-  $(function() {
-    $('a#calculate').bind('click', function() {
-      $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
-        a: $('input[name="a"]').val(),
-        b: $('input[name="b"]').val()
-      }, function(data) {
-        $("#result").text(data.result);
-      });
-      return false;
-    });
-  });
-</script>
 
-<h1>jQuery Example</h1>
-<p><input type=text size=5 name=a> +
-   <input type=text size=5 name=b> =
-   <span id=result>?</span>
-<p><a href=# id=calculate>calculate server side</a>
+
+<h1>Planets available</h1>
 
 <div>
 <svg xmlns="http://www.w3.org/2000/svg" width="200px" height="300px" version="1.1">
@@ -53,11 +37,13 @@ function travelToPlanet(evt) {
 
 // update backend selection to current planet
 var new_planet_data
+var planet = "planet4";
+
 
 $.getJSON($SCRIPT_ROOT + '/_get_planet', {
-	planet: "planet4"
-	}, function(rvalue) {
-		new_planet_data = rvalue.planet
+	planet: planet
+	}, function(x) {
+		alert(x.planet)
 	});
 
 // get planet data for new planet
@@ -65,13 +51,10 @@ $.getJSON($SCRIPT_ROOT + '/_get_planet', {
 
 // list data for new planet
 document.getElementById('data_div').innerHTML = new_planet_data;
-alert()
-alert(new_planet_data)
 }
 
 </script>
 
-<script type=text/javascript
-  src="myscript.js"></script>
+
 
 {% endblock %}

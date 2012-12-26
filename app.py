@@ -2,18 +2,18 @@ import os
 from flask import Flask, jsonify, render_template, request
 app = Flask(__name__)
 
-@app.route('/_add_numbers')
-def add_numbers():
-    """Add two numbers server side, ridiculous but well..."""
-    a = request.args.get('a', 0, type=int)
-    b = request.args.get('b', 0, type=int)
-    return jsonify(result=a + b)
+
 
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+@app.route('/_get_planet')
+def get_planet():
+	"""gets the latest planet selection from the client"""
+	planet = request.args.get('planet')
+	return jsonify(planet=planet + " success!")
 
 
 class planet:
@@ -42,12 +42,7 @@ planet_dict = {'planet1' : planet1, 'planet2' : planet2, 'planet3' : planet3, 'p
 
 planet = "planet1"
 
-@app.route('/_get_planet')
-def get_planet():
-	"""gets the latest planet selection from the client"""
-	planet = request.args.get('planet', 0, type=str)
-	planet = planet & " success!"
-	return jsonify(planet)
+
 
 
 def send_planet_data():
