@@ -20,35 +20,56 @@
    <span id=result>?</span>
 <p><a href=# id=calculate>calculate server side</a>
 
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+<div>
+<svg xmlns="http://www.w3.org/2000/svg" width="200px" height="300px" version="1.1">
 
 <text x="10" y="35">Planets available</text>
 
-<circle id="planet1" cx="40" cy="80" r="20" stroke="black" stroke-width="1" fill="green" /> <!--add onclick, launch travelToPlanet-->
-<circle id="planet2" cx="80" cy="100" r="20" stroke="black" stroke-width="1" fill="green" onmousedown="travelToPlanet(evt)" />
-<circle id="planet3" cx="120" cy="160" r="20" stroke="black" stroke-width="1" fill="green" />
-<circle id="planet4" cx="70" cy="140" r="20" stroke="black" stroke-width="1" fill="green" />
+<circle class="planet" id="planet1" cx="40" cy="80" r="20" stroke="black" stroke-width="1" fill="green" onmousedown="travelToPlanet(evt)" /> 
+<circle class="planet" id="planet2" cx="80" cy="100" r="20" stroke="black" stroke-width="1" fill="green" onmousedown="travelToPlanet(evt)" />
+<circle class="planet" id="planet3" cx="120" cy="160" r="20" stroke="black" stroke-width="1" fill="green" onmousedown="travelToPlanet(evt)" />
+<circle class="planet" id="planet4" cx="70" cy="140" r="20" stroke="black" stroke-width="1" fill="green" onmousedown="travelToPlanet(evt)" />
 
 <circle id="location" cx="40" cy="80" r="5" stroke="black" stroke-width="1" fill="black" />
 
+
 </svg>
+
+<div id="data_div">
+
+
 
 <!--This script will update the planet selected when a circle is clicked-->
 <script type=text/javascript>
 
 // move selector circle to new planet
-    function travelToPlanet(evt) {
-    	// alert(evt.target)
-      var new_x = evt.target.getAttribute("cx")
-      var new_y = evt.target.getAttribute("cy")
-      document.getElementById('location').setAttributeNS(null, "cx", new_x)
-      document.getElementById('location').setAttributeNS(null, "cy", new_y)
-    }
+function travelToPlanet(evt) {
 
-// update backend to remember planet selection
+	var new_x = evt.target.getAttribute("cx")
+	var new_y = evt.target.getAttribute("cy")
+	document.getElementById('location').setAttributeNS(null, "cx", new_x)
+	document.getElementById('location').setAttributeNS(null, "cy", new_y)
+    
+
+// update backend selection to current planet
+var new_planet_data
+
+$.getJSON($SCRIPT_ROOT + '/_get_planet', {
+	planet: "planet4"
+	}, function(rvalue) {
+		new_planet_data = rvalue.planet
+	});
+
+// get planet data for new planet
+
+
+// list data for new planet
+document.getElementById('data_div').innerHTML = new_planet_data;
+alert()
+alert(new_planet_data)
+}
 
 </script>
-
 
 <script type=text/javascript
   src="myscript.js"></script>
