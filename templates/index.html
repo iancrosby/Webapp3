@@ -29,24 +29,27 @@
 // move selector circle to new planet
 function travelToPlanet(evt) {
 
-	var new_x = evt.target.getAttribute("cx")
-	var new_y = evt.target.getAttribute("cy")
-	document.getElementById('location').setAttributeNS(null, "cx", new_x)
-	document.getElementById('location').setAttributeNS(null, "cy", new_y)
+	var new_x = evt.target.getAttribute("cx");
+	var new_y = evt.target.getAttribute("cy");
+	document.getElementById('location').setAttributeNS(null, "cx", new_x);
+	document.getElementById('location').setAttributeNS(null, "cy", new_y);
     
 
 // update backend selection to current planet
-var new_planet_data
-var planet = "planet4";
+	var planet = evt.target.id;
 
-
-$.getJSON($SCRIPT_ROOT + '/_get_planet', {
+$.getJSON($SCRIPT_ROOT + '/_update_planet', {
 	planet: planet
 	}, function(x) {
 		alert(x.planet)
 	});
 
-// get planet data for new planet
+// get planet data for new location from python
+$.getJSON($SCRIPT_ROOT + '/_send_planet_data', {
+	planet: planet
+	}, function(x) {
+		alert(x.planet_data)
+	});
 
 
 // list data for new planet

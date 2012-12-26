@@ -9,11 +9,18 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/_get_planet')
+@app.route('/_update_planet')
 def get_planet():
-	"""gets the latest planet selection from the client"""
-	planet = request.args.get('planet')
-	return jsonify(planet=planet + " success!")
+	"""gets the latest location from the client"""
+	global location
+	location = request.args.get('planet')
+	return jsonify(planet=location + " success!")
+
+@app.route('/_send_planet_data')
+def send_planet_data():
+	"""sends planet data to the client"""
+	planet_data = planet_dict[location].p_data
+	return jsonify(planet_data=planet_data)
 
 
 class planet:
@@ -40,15 +47,12 @@ planet3 = planet(120, 160, "The third planet")
 planet4 = planet(70, 40, "The fourth planet")
 planet_dict = {'planet1' : planet1, 'planet2' : planet2, 'planet3' : planet3, 'planet4' : planet4}
 
-planet = "planet1"
+location = "planet1"
 
 
 
 
-def send_planet_data():
-	"""sends planet data to the client"""
-	planet_data = planet_dict[planet].data
-	return jsonify(planet_data)
+
 
 
 if __name__ == '__main__':
