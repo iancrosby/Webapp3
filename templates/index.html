@@ -22,9 +22,33 @@
 
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
 
-<circle cx="100" cy="50" r="20" stroke="black" stroke-width="1" fill="green" />
+<text x="10" y="35">Planets available</text>
+
+<circle id="planet1" cx="40" cy="80" r="20" stroke="black" stroke-width="1" fill="green" /> <!--add onclick, launch travelToPlanet-->
+<circle id="planet2" cx="80" cy="100" r="20" stroke="black" stroke-width="1" fill="green" onmousedown="travelToPlanet(evt)" />
+<circle id="planet3" cx="120" cy="160" r="20" stroke="black" stroke-width="1" fill="green" />
+<circle id="planet4" cx="70" cy="140" r="20" stroke="black" stroke-width="1" fill="green" />
+
+<circle id="location" cx="40" cy="80" r="5" stroke="black" stroke-width="1" fill="black" />
 
 </svg>
+
+<!--This script will update the planet selected when a circle is clicked-->
+<script type=text/javascript>
+
+// move selector circle to new planet
+    function travelToPlanet(evt) {
+    	// alert(evt.target)
+      var new_x = evt.target.getAttribute("cx")
+      var new_y = evt.target.getAttribute("cy")
+      document.getElementById('location').setAttributeNS(null, "cx", new_x)
+      document.getElementById('location').setAttributeNS(null, "cy", new_y)
+    }
+
+// update backend to remember planet selection
+
+</script>
+
 
 <script type=text/javascript
   src="myscript.js"></script>
